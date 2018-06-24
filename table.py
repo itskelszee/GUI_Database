@@ -10,22 +10,20 @@ class table:
         self._name = tbl_name
         self._conn = sqlite3.connect('sqtest.db')
         
-
     # create a table using the attrib names and types        
     def create(self, attib_names, attrb_types):
-      
-      col_string = "("
-      counter = 0
-      for i in attib_names:
-          if counter != (len(attib_names)-1):
+        col_string = "("
+        counter = 0
+        for i in attib_names:
+            if counter != (len(attib_names)-1):
               #Concatenate string to add SQL formatting {} and ()
-              col_string += i       
-              col_string += " {at}, ".format(at = attrb_types)
-              counter += 1
-          else:
-              col_string += i
-              col_string += " {at})".format(at = attrb_types)
-      self._conn.execute('CREATE TABLE IF NOT EXISTS {tn} {at}'\
+                col_string += i       
+                col_string += " {at}, ".format(at = attrb_types)
+                counter += 1
+            else:
+                col_string += i
+                col_string += " {at})".format(at = attrb_types)
+        self._conn.execute('CREATE TABLE IF NOT EXISTS {tn} {at}'\
                            .format(tn = self._name, at = col_string))
     # get the list of attribute names of the table 
     def getAttribNames(self):
@@ -51,7 +49,6 @@ class table:
         self._conn.execute('INSERT INTO {tn} VALUES {rs}'\
                            .format(tn = self._name, rs = row_string))
         
-    
     # returns a cursor  
     def retrieveAll(self):
         return self._conn.cursor()
@@ -62,7 +59,6 @@ class table:
         #Create a new cursor object to point to average 
         cursorObject.execute('SELECT {gp}, AVG({at}) FROM {tn} GROUP BY {gp}'\
                    .format(gp = grpby_col, at = avg_col, tn = self._name))
-
         print("The average of all gpa's grouped by cwid: ")
         #Can also use fetchone() that will print out average of student with the most records
         print(cursorObject.fetchall())
@@ -88,4 +84,3 @@ tbl.performAvgGroupBY('gpa', 'cwid')
 tbl.retrieveAll()
 tbl.commitChanges()
 file.close()
-
