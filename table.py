@@ -1,11 +1,6 @@
-#Kelsey Yim
-#Assignment #4
-#CPSC 223P
-
 import sqlite3
 
 class table:
-    
     def __init__(self, tbl_name):
         self._name = tbl_name
         self._conn = sqlite3.connect('sqtest.db')
@@ -25,6 +20,7 @@ class table:
                 col_string += " {at})".format(at = attrb_types)
         self._conn.execute('CREATE TABLE IF NOT EXISTS {tn} {at}'\
                            .format(tn = self._name, at = col_string))
+        
     # get the list of attribute names of the table 
     def getAttribNames(self):
         c = self._conn.execute('SELECT * FROM {tn}'.format(tn = self._name))
