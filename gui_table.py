@@ -1,7 +1,3 @@
-#Kelsey Yim
-#Assignment #4
-#CPSC 223P
-
 import table
 from tkinter import *
 
